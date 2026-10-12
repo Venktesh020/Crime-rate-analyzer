@@ -1,56 +1,117 @@
+# Crime Rate Analyzer
 
-# AI-Powered Crime Intelligence System - Top 1% Evaluation Build
+This project is a web application for analyzing crime data across states and districts in India. It uses Python, Flask, and machine learning to display crime statistics, compare crime categories, classify districts by risk score, and estimate total crime counts.
 
-## Project Title
-AI-Powered Crime Intelligence System with District-Level Risk Prediction and Geo-Spatial Visualization
+## Features
 
-## How to Run
+* View crime statistics by district and year.
+* Analyze violent crimes, property crimes, and crimes against women.
+* Compare Random Forest and Linear Regression models.
+* View crime trends through charts.
+* Display district-level information on a map.
+* Calculate a crime risk score and classify districts as Low, Medium, or High Risk.
+* Generate a prediction for a selected district and year.
+
+## Technologies Used
+
+* Python
+* Flask
+* Pandas and NumPy
+* Scikit-learn
+* Joblib
+* HTML, CSS, and JavaScript
+* Leaflet for map visualization
+
+## Project Structure
+
+```text
+ai_crime_rate_analyzer_top_1_percent/
+├── app.py
+├── requirements.txt
+├── README.md
+├── data/
+│   └── final_crime_data_full_states_districts_2001_2024.csv
+├── models/
+├── static/
+│   ├── css/
+│   └── js/
+└── templates/
+    └── index.html
+```
+
+## How to Run the Project
+
+### 1. Install Python
+
+Install Python and make sure it is available from the command line.
+
+### 2. Clone the repository
+
+```bash
+git clone https://github.com/Venktesh020/Crime-rate-analyzer.git
+cd Crime-rate-analyzer
+```
+
+### 3. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+On Windows, activate it with:
+
+```bash
+.venv\Scripts\activate
+```
+
+### 4. Install the required packages
 
 ```bash
 pip install -r requirements.txt
+```
+
+### 5. Check the dataset path
+
+The application reads the dataset from `data/crime_data.csv`.
+
+The dataset included in this repository has a different filename. Either rename it to `crime_data.csv` or update the `DATA_PATH` variable in `app.py` to match the existing filename.
+
+### 6. Start the application
+
+```bash
 python app.py
 ```
 
-Open in browser:
+Open this address in your browser:
 
-```text
 http://127.0.0.1:5000
-```
 
-## Important Features for Evaluation
+## Machine Learning
 
-1. District-wise crime analysis
-2. Crime categories:
-   - Violent Crimes
-   - Property Crimes
-   - Crimes Against Women
-3. AI prediction using Random Forest
-4. Model comparison with Linear Regression
-5. Risk Score formula:
-   Risk Score = 0.5 × Violent + 0.3 × Property + 0.2 × Crimes Against Women
-6. Risk classification:
-   - Low Risk
-   - Medium Risk
-   - High Risk
-7. Geo-spatial map visualization using Leaflet
-8. Smart AI insight generation
-9. Top risk district ranking
-10. Interactive dashboard
+The project uses a Random Forest Regressor to estimate total crime counts and Linear Regression for comparison. The models are evaluated using R² score and Mean Absolute Error (MAE).
 
-## Dataset Format
+The application also calculates a risk score using the following weights:
 
-Replace `data/crime_data.csv` with real NCRB district data using this column format:
+* Violent crimes: 50%
+* Property crimes: 30%
+* Crimes against women: 20%
 
-```text
-state,district,year,violent_crimes,property_crimes,crimes_against_women,latitude,longitude
-```
+Risk levels are assigned using thresholds calculated from the dataset's risk scores. These categories are defined by the project and are not official government classifications.
 
-## Demo Script
+## Dataset
 
-Say this during project evaluation:
+The dataset is stored in the `data` folder and contains state, district, year, crime-category counts, and geographic coordinates.
 
-"This project analyzes Indian district-level crime data using AI. It categorizes crimes into violent crimes, property crimes, and crimes against women. The system calculates a weighted risk score, predicts future crime using Random Forest, compares model performance, and displays district-wise risk on a map dashboard. This helps in identifying high-risk districts and supports data-driven crime prevention planning."
+The source and accuracy of the data should be verified before using the results for research or reporting. Historical data and model predictions should not be treated as official crime forecasts.
 
-## Note
+## Limitations
 
-The included dataset is sample/demo data. For final submission, replace it with verified NCRB district-level data.
+The quality of the results depends on the data provided to the application. The model's predictions may not reflect actual future crime counts and should be evaluated further before practical use.
+
+This project was developed for educational and analytical purposes.
+
+## Author
+
+Venktesh Kumar
+
+GitHub: https://github.com/Venktesh020
