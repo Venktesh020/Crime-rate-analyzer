@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Crime Rate Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-dark px-4">
+    <span class="navbar-brand mb-0 h1">AI-Powered Crime Intelligence System</span>
+    <span class="badge bg-warning text-dark">Top 1% Evaluation Build</span>
+</nav>
+
+<div class="container-fluid px-4 mt-4">
+    <div class="hero p-4 mb-4">
+        <h1>District-Level Crime Analyzer & Prediction System</h1>
+        <p>AI-based district crime analysis for India using violent crimes, property crimes, and crimes against women.</p>
+        <p class="small mb-0">Risk Score = 0.5 × Violent Crimes + 0.3 × Property Crimes + 0.2 × Crimes Against Women</p>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-2"><div class="card stat"><h4>{{ cards.total_districts }}</h4><p>Districts</p></div></div>
+        <div class="col-md-2"><div class="card stat"><h4>{{ cards.total_states }}</h4><p>States</p></div></div>
+        <div class="col-md-2"><div class="card stat"><h4>{{ cards.latest_year }}</h4><p>Latest Year</p></div></div>
+        <div class="col-md-3"><div class="card stat"><h4>{{ cards.total_crimes }}</h4><p>Total Latest Crimes</p></div></div>
+        <div class="col-md-3"><div class="card stat danger"><h4>{{ cards.high_risk }}</h4><p>High Risk Districts</p></div></div>
+    </div>
+
+    <div class="row mt-4 g-4">
+        <div class="col-lg-7">
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>Crime Trend Visualization</h5>
+                    <select id="districtSelect" class="form-select w-50">
+                        {% for d in districts %}
+                        <option value="{{ d }}">{{ d }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <canvas id="crimeChart" class="mt-3"></canvas>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card p-3">
+                <h5>AI Crime Prediction</h5>
+                <label>State</label>
+                <select id="stateInput" class="form-select">
+                    {% for s in states %}
+                    <option value="{{ s }}">{{ s }}</option>
+                    {% endfor %}
+                </select>
+
+                <label class="mt-2">District</label>
+                <select id="districtInput" class="form-select">
+                    {% for d in districts %}
+                    <option value="{{ d }}">{{ d }}</option>
+                    {% endfor %}
+                </select>
+
+                <label class="mt-2">Future Year</label>
+                <input id="yearInput" type="number" class="form-control" value="2026">
+
+                <button class="btn btn-primary mt-3 w-100" onclick="predictCrime()">Predict Future Crime</button>
+                <button class="btn btn-outline-dark mt-2 w-100" onclick="trainModel()">Show Model Comparison</button>
+
+                <div id="predictionResult" class="result-box mt-3">Prediction output will appear here.</div>
+                <div id="modelResult" class="model-box mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 g-4">
+        <div class="col-lg-7">
+            <div class="card p-3">
+                <h5>Geo-Spatial Crime Risk Map</h5>
+                <p class="small text-muted">Markers represent latest district-wise risk intensity.</p>
+                <div id="crimeMap"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card p-3">
+                <h5>Crime Category Distribution</h5>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="card p-3 mt-4 mb-4">
+        <h5>Top Risk Districts</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>State</th><th>District</th><th>Violent</th><th>Property</th>
+                        <th>Women Crimes</th><th>Risk Score</th><th>Risk Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in latest_records %}
+                    <tr>
+                        <td>{{ r.state }}</td>
+                        <td>{{ r.district }}</td>
+                        <td>{{ r.violent_crimes }}</td>
+                        <td>{{ r.property_crimes }}</td>
+                        <td>{{ r.crimes_against_women }}</td>
+                        <td>{{ "%.2f"|format(r.risk_score) }}</td>
+                        <td><span class="risk-pill">{{ r.risk_level }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

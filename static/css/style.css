@@ -1,0 +1,59 @@
+
+body {
+    background: #f3f6fb;
+    font-family: Arial, sans-serif;
+}
+.navbar {
+    background: #101827;
+}
+.hero {
+    background: linear-gradient(135deg, #101827, #26364f);
+    color: white;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+.hero h1 {
+    font-weight: 800;
+}
+.card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.10);
+}
+.stat {
+    padding: 24px;
+    text-align: center;
+}
+.stat h4 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0d6efd;
+}
+.stat p {
+    margin: 0;
+    color: #4b5563;
+}
+.danger h4 {
+    color: #dc3545;
+}
+.result-box, .model-box {
+    background: #eef4ff;
+    border-radius: 14px;
+    padding: 14px;
+    min-height: 70px;
+}
+#crimeMap {
+    height: 430px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+.risk-pill {
+    background: #111827;
+    color: white;
+    border-radius: 50px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+canvas {
+    max-height: 420px;
+}
